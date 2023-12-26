@@ -12,5 +12,5 @@
 Unity с использованием скриптов написанных на C#
 Git
 Git-LFS
-Редактор кода: Visual Studio Code
+Редактор кода: Visual Studio Code. 
 
