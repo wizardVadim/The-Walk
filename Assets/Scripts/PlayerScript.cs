@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     
+    private AudioSource audioSource;
     private Rigidbody2D rb;
     private float HorizontalMove = 0f;
     private bool FacingRight = true;
@@ -23,20 +24,26 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
      void Start()
     {
-        rb       = GetComponent<Rigidbody2D>();
+        rb          = GetComponent<Rigidbody2D>();
         
-        animator = GetComponent<Animator>();   
+        animator    = GetComponent<Animator>();   
     
-        thisScale = transform.localScale; 
+        thisScale   = transform.localScale;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H)) 
+        if (
+            Input.GetKeyDown(KeyCode.H)
+            && isGrounded
+            )  
         {
             animator.SetTrigger("Smoke");
             HorizontalMove = 0;
+            audioSource.PlayOneShot(audioSource.clip);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !IsAnimationPlaying("player_smoking"))
