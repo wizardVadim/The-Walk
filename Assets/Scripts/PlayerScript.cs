@@ -42,11 +42,36 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !IsAnimationPlaying("player_smoking"))
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-        } 
+            animator.SetBool("IsJump", true);
+
+        }
+
+        if (isGrounded && IsAnimationPlaying("JUMP"))
+        {
+            animator.SetBool("IsJump", false);
+        }
 
         HorizontalMove = Input.GetAxisRaw("Horizontal") * speed;
 
         if (HorizontalMove != 0 && !IsAnimationPlaying("player_smoking")) 
+        {
+            animator.SetFloat("Blend", speed * 5);
+        } 
+        else
+        {
+            animator.SetFloat("Blend", 0);
+        }
+
+        if (HorizontalMove < 0 && FacingRight)
+        {
+            Flip();
+        }
+        else if (HorizontalMove > 0 && !FacingRight) 
+        {
+            Flip();
+        }
+
+         if (HorizontalMove != 0 && !IsAnimationPlaying("player_smoking")) 
         {
             animator.SetFloat("Blend", speed * 5);
         } 
